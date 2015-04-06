@@ -1,6 +1,6 @@
 {
-  "name": "application-name",
-  "version": "0.0.1",
+  "name": "Choons",
+  "version": "0.0.3",
   "private": true,
   "scripts": {
     "start": "nodejs ./bin/www"
