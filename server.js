@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var flash = require('connect-flash');
 var passport = require('passport');
+
 // modules to store session
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
@@ -17,6 +18,8 @@ var choons = require('./server/routes/choons');
 
 // database configuration
 var config = require('./server/config/config.js');
+
+// connect to db
 mongoose.connect(config.url); // set to localhost
 
 // Check if MongoDB is running
@@ -39,9 +42,17 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
-app.use('/api/choons', choons);
+// required for passport secret for session
+app.use(session({
+  secret: 'nopants',
+  saveUninitialized: true,
+  resave: true,
+  // store session on MongoDB using express-session + connect mongo
+  store: new MongoStore({
+    url: config.url,
+    collection : 'sessions'
+  })
+}));
 
 // flash warning messages
 app.use(flash()); // i swear if this is adobe flash...
@@ -52,17 +63,10 @@ app.use(passport.initialize());
 // persistent login sessions
 app.use(passport.session());
 
-// required for passport secret for session
-app.use(session({
-  secret: 'somethingsomething',
-  saveUninitialized: true,
-  resave: true,
-  // store session on MongoDB using express-session + connect mongo
-  store: new MongoStore({
-    url: config.url,
-    collection : 'sessions'
-  })
-}));
+// using routes
+app.use('/', routes);
+app.use('/users', users);
+app.use('/api/choons', choons);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
