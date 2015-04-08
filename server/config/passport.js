@@ -7,7 +7,7 @@ var User = require('../../server/models/user');
 module.exports = function(passport) {
   // passport setup
   // serialize user
-  passport.serilizeUser(function(user, done) {
+  passport.serializeUser(function(user, done) {
     done(null, user.id);
   });
   // deserialize user
@@ -30,6 +30,7 @@ module.exports = function(passport) {
       email = email.toLowerCase();
     }
     // asynchronous
+
     process.nextTick(function() {
       User.findOne({ 'local.email' : email }, function(err,
       user) { // if errors
@@ -66,6 +67,7 @@ function(req, email, password, done) {
     email = email.toLowerCase();
   }
   // asynchronous
+
   process.nextTick(function() {
     // if the user is not already logged in:
     if (!req.user) {
@@ -88,13 +90,14 @@ function(req, email, password, done) {
             if (err) {
               throw err;
             }
+              return done(null, newUser);
           });
         }
       });
     } else {
       // everything checks out, register user
-      return done(null,req.user);
+      return done(null, req.user);
     }
   });
-}));
+  }));
 };

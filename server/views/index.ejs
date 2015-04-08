@@ -1,11 +1,31 @@
 <!DOCTYPE html>
+<!-- go back through and edit this dood -->
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
+  <% include common/head %>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+  <div class="header">
+    <div class= "home-menu pure-menu-open pure-menu-horizontal pure-menu-fixed">
+      <a class="pure-menu-heading" href="..">Choons API </a>
+      <ul>
+        <li class = "pure-menu-selected"><a href='/'>Home</a></li>
+        <li><a href ="/login"> Login</a></li>
+        <li><a href ="/signup"> signup</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="splash-container">
+    <div class="splash">
+      <h1 class="splash-head">Choon</h1>
+      <p class="splash-subhead">
+        They know what is what but they don't know what is what
+        they just front. w.t.f. +_-
+      </p>
+      <p>
+        <a href="/login" class="pure-button pure-button-primary">View Choons</a>
+      </p>
+    </div>
+  </div>
+  <% include common/footer %>
   </body>
 </html>
