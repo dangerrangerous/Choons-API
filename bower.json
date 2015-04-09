@@ -1,0 +1,8 @@
+{
+  "name": "Choons",
+  "version": "0.0.3",
+  "dependencies": {
+    "purecss": "~0.6.0",
+    "responsiveboilerplate": "2.3.2"
+  }
+}
