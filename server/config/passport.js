@@ -16,6 +16,11 @@ module.exports = function(passport) {
       done(err, user);
     });
   });
+
+  // Note: local strategy is currently below AND a version in config/strategies,
+  // refactor this and include other strategies in the config/strategies folder
+
+
   // Configure local login strategy
   passport.use('local-login', new LocalStrategy({
     // change default username and password, to email and

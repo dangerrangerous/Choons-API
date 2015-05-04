@@ -1,3 +1,6 @@
+// Note: a localstrategy is currently in passport.js file. Plan on
+// implementing various strategies in the config/strategy folder
+
 var passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy,
   User = require('mongoose').model('User');
