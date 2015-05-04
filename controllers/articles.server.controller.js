@@ -27,3 +27,18 @@ exports.create = function(req, res) {
     }
   });
 };
+
+// retrieves list of existing articles using mongoose find() function,
+// consider adding a mongoDB query. Also, possibly replace fullName w/ userName
+exports.list = function(req, res) {
+  Article.find().sort('-created').populate('creator', 'firstName lastName fullName').
+  exec(function(err, articles) {
+    if (err) {
+      return res.status(400).send({
+        message: getErrorMessage(err)
+      });
+    } else {
+      res.json(articles);
+    }
+  });
+};
